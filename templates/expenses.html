@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Expenses{% endblock %}
+
+{% block content %}
+  <section class="page-header split">
+    <div>
+      <p class="eyebrow">Operations</p>
+      <h1>Expenses</h1>
+    </div>
+  </section>
+
+  <section class="panel form-panel">
+    <h2>Record expense</h2>
+    <form method="post" class="grid-form">
+      <label>
+        Title
+        <input type="text" name="title" placeholder="Electricity" required>
+      </label>
+      <label>
+        Amount
+        <input type="number" step="0.01" name="amount" min="0" required>
+      </label>
+      <label>
+        Expense date
+        <input type="date" name="expense_date">
+      </label>
+      <label>
+        Note
+        <input type="text" name="note" placeholder="Optional note">
+      </label>
+      <button type="submit">Save expense</button>
+    </form>
+  </section>
+
+  <section class="panel">
+    <h2>Expense list</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>Note</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in expenses %}
+            <tr>
+              <td>{{ item.title }}</td>
+              <td>{{ '%.2f'|format(item.amount) }}</td>
+              <td>{{ item.expense_date }}</td>
+              <td>{{ item.note or '-' }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+{% endblock %}

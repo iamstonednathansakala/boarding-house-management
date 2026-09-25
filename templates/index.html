@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+  <section class="page-header">
+    <div>
+      <p class="eyebrow">Overview</p>
+      <h1>Boarding House Management</h1>
+    </div>
+  </section>
+
+  <section class="stats-grid">
+    <div class="stat-card accent-blue">
+      <span>Total Rooms</span>
+      <strong>{{ total_rooms }}</strong>
+    </div>
+    <div class="stat-card accent-green">
+      <span>Occupied</span>
+      <strong>{{ occupied_rooms }}</strong>
+    </div>
+    <div class="stat-card accent-orange">
+      <span>Available</span>
+      <strong>{{ available_rooms }}</strong>
+    </div>
+    <div class="stat-card accent-purple">
+      <span>Residents</span>
+      <strong>{{ total_residents }}</strong>
+    </div>
+  </section>
+
+  <section class="summary-layout">
+    <div class="panel">
+      <h2>Room status</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Room</th>
+              <th>Rent</th>
+              <th>Status</th>
+              <th>Resident</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for room in rooms %}
+              <tr>
+                <td>{{ room.room_number }}</td>
+                <td>{{ '%.2f'|format(room.monthly_rent) }}</td>
+                <td><span class="pill {% if room.status == 'occupied' %}occupied{% else %}available{% endif %}">{{ room.status }}</span></td>
+                <td>{{ room.resident_name or 'Vacant' }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Collection summary</h2>
+      <div class="money-row">
+        <span>Monthly collection</span>
+        <strong>{{ '%.2f'|format(monthly_collection) }}</strong>
+      </div>
+      <div class="money-row">
+        <span>Total expenses</span>
+        <strong>{{ '%.2f'|format(total_expenses) }}</strong>
+      </div>
+
+      <h3>Recent payments</h3>
+      <ul class="recent-list">
+        {% for payment in recent_payments %}
+          <li>
+            <strong>{{ payment.resident_name }}</strong>
+            <span>{{ payment.amount }} · {{ payment.month }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+{% endblock %}

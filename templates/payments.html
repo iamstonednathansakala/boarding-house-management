@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}Payments{% endblock %}
+
+{% block content %}
+  <section class="page-header split">
+    <div>
+      <p class="eyebrow">Cash flow</p>
+      <h1>Payments</h1>
+    </div>
+  </section>
+
+  <section class="panel form-panel">
+    <h2>Record payment</h2>
+    <form method="post" class="grid-form">
+      <label>
+        Resident
+        <select name="resident_id" required>
+          <option value="">Select resident</option>
+          {% for resident in residents %}
+            <option value="{{ resident.id }}">{{ resident.name }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label>
+        Amount
+        <input type="number" step="0.01" name="amount" min="0" required>
+      </label>
+      <label>
+        Payment date
+        <input type="date" name="payment_date">
+      </label>
+      <label>
+        Month
+        <input type="text" name="month" placeholder="2026-09">
+      </label>
+      <label>
+        Note
+        <input type="text" name="note" placeholder="Optional note">
+      </label>
+      <button type="submit">Save payment</button>
+    </form>
+  </section>
+
+  <section class="panel">
+    <h2>Recent payments</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Resident</th>
+            <th>Room</th>
+            <th>Amount</th>
+            <th>Month</th>
+            <th>Date</th>
+            <th>Note</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for payment in payments %}
+            <tr>
+              <td>{{ payment.resident_name }}</td>
+              <td>{{ payment.room_number }}</td>
+              <td>{{ '%.2f'|format(payment.amount) }}</td>
+              <td>{{ payment.month }}</td>
+              <td>{{ payment.payment_date }}</td>
+              <td>{{ payment.note or '-' }}</td>
+              <td>
+                <form method="post" action="{{ url_for('delete_payment', payment_id=payment.id) }}" onsubmit="return confirm('Delete this payment?');">
+                  <button type="submit" class="danger-button">Delete</button>
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+{% endblock %}
