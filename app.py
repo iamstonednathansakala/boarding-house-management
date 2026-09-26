@@ -81,14 +81,13 @@ def init_db():
                     ("A-1", 600.00, "occupied", "Corner room"),
                     ("A-2", 600.00, "occupied", "Front-facing room"),
                     ("A-3", 600.00, "available", "Recently cleaned"),
-                    ("A-4", 600.00, " available", "Front Window"),
+                    ("A-4", 600.00, "available", "Front Window"),
                     ("B-5", 600.00, "occupied", "Good for single occupant"),
                     ("C-6", 600.00, "occupied", "Bottom Bunker-Door side"),
                     ("C-7", 600.00, "occupied",  "Double-Bed"),
                     ("C-8", 600.00, "occupied",  "Bottom-Bunker"),
-                    ("C-9", 600.00, "occupied",  "Top-Bunker")
-                    ("D-10", 600.00, "available," "Top-Bunker"),
-                    ("D-11", 600.00, "Occupied"," "Bottom-Bunker"),
+                    ("C-9", 600.00, "occupied", "Top-Bunker"),
+                    ("D-10", 600.00, "available", "Top-Bunker"),
                 ],
             )
 
